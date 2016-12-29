@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # This is the path to the upload directory
 home = expanduser("~")
-project_dir = "handwritten_digit_classifer-master"
+project_dir = "handwritten_digit_classifer"
 path_to_uploads = os.path.join(home, project_dir, "uploads")
 app.config['UPLOAD_FOLDER'] = path_to_uploads
 

@@ -31,7 +31,7 @@ def main():
     """Main function to get the most recently uploaded PNG file and pass it to
     the classify function, returns the classifiers prediction"""
     home = expanduser("~")
-    project_dir = "handwritten_digit_classifer-master"
+    project_dir = "handwritten_digit_classifer"
     path_to_uploads = os.path.join(home, project_dir, "uploads")
     os.chdir(path_to_uploads)
     # get all PNG filenames

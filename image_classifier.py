@@ -46,7 +46,7 @@ def train_model(path_to_project):
     # predicting the test set
     y_true, y_pred = y_test, clf.predict(X_test)
     # print accuracy
-    print "The accuracy of the model on the test set is " + accuracy_score(y_true, y_pred)
+    print "The accuracy of the model on the test set is " + str(accuracy_score(y_true, y_pred))
     
     #pickle the model so it can be used by the app
     path_to_pickle = os.path.join(path_to_project, "model.pkl")
@@ -55,7 +55,7 @@ def train_model(path_to_project):
 def main():
      """Main function to call the train_model function """
      home = expanduser("~")
-     project_dir = "handwritten_digit_classifer-master/"
+     project_dir = "handwritten_digit_classifer/"
      path_to_project = os.path.join(home, project_dir)
      train_model(path_to_project)
 
