@@ -1,25 +1,19 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-"""
-Script should be called from the command line as follows:
-    
-python image_classifier.py
-"""
-
 import download_decompress_save_load
 import numpy as np 
 from sklearn import preprocessing
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
 import pickle
 import os
 from os.path import expanduser
 
 def train_model(path_to_project):
-    # download the data
+    """Trains and tests the Neural Network, prints its accuracy on the test set"""
+    # download, save, and load the data
     try:
         train_feats, train_labels, test_feats, test_labels = download_decompress_save_load.main(path_to_project)
     except Exception as e: 
@@ -39,9 +33,8 @@ def train_model(path_to_project):
     y = train_labels
     y_test = test_labels
 
-    # Doing crossvalidation to choose good hyperparameter values to use for model
-    # parameter values ==> C=2−5,2−3,…,215; γ=2−15,2−13,…,23
-    alpha_params = 10.0 ** -np.arange(1, 7)
+    ######## Doing crossvalidation to choose good hyperparameter value for alpha to use for model #######
+    alpha_params = 10.0 ** -np.arange(1, 7) # Values suggested by Scikit-learn
     alpha_params = alpha_params.tolist()
     parameters = {
         'alpha': alpha_params
@@ -50,18 +43,17 @@ def train_model(path_to_project):
     clf = GridSearchCV(MLPClassifier(solver='lbfgs', random_state=1), parameters, n_jobs=-1)
     # fitting the model to do cross-validation
     clf.fit(X, y) # TAKES 9 MINUTES TO TRAIN ON MY 8-CORE MACBOOK PRO
-    # getting the best parameter and score
-    print clf.best_params_
     # predicting the test set
     y_true, y_pred = y_test, clf.predict(X_test)
-    print accuracy_score(y_true, y_pred)
-    print classification_report(y_true, y_pred) 
+    # print accuracy
+    print "The accuracy of the model on the test set is " + accuracy_score(y_true, y_pred)
     
-    #pickle the model
+    #pickle the model so it can be used by the app
     path_to_pickle = os.path.join(path_to_project, "model.pkl")
     pickle.dump(clf, open( path_to_pickle, "wb" ) )
-    
+ 
 def main():
+     """Main function to call the train_model function """
      home = expanduser("~")
      project_dir = "handwritten_digit_classifer-master/"
      path_to_project = os.path.join(home, project_dir)

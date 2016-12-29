@@ -7,7 +7,6 @@ import gzip
 import os
 import struct
 import numpy as np
-from os.path import expanduser
 
 def download_uncompress_save(path, baseURL, filename): 
     """ downloads files, uncompresses, and saves them """
