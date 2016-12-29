@@ -63,7 +63,7 @@ def train_model(path_to_project):
     
 def main():
      home = expanduser("~")
-     project_dir = "Planet_ML_project/"
+     project_dir = "handwritten_digit_classifer-master/"
      path_to_project = os.path.join(home, project_dir)
      train_model(path_to_project)
 

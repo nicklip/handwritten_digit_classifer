@@ -31,7 +31,7 @@ def classify(image, home, project_dir):
 
 def main():
     home = expanduser("~")
-    project_dir = "Planet_ML_project"
+    project_dir = "handwritten_digit_classifer-master"
     path_to_uploads = os.path.join(home, project_dir, "uploads")
     os.chdir(path_to_uploads)
     list_of_pngs = glob.glob('*.png')
